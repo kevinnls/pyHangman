@@ -1,17 +1,31 @@
-import clear
 import json
 from random import choice as choice
-#from clear import clear as clear
-from listify import listify as listify
-from dashify import dashify as dashify
+from clear import clear as clear
+def listify(string):
+    n = 0
+    l = []
+    for i in string:
+        l.append(i)
+        n+=1
+    return l
+def dashify(dashes):
+    for i in dashes:
+        print(i ,end = " ")
+    print ("\n")
+def hangman():
+    clear()
+    print("welcome to hangman\n")
+    dashify(dashes)
+
 with open('dictionary.json') as dict:
     word = listify(choice(json.load(dict)))
     dashes = listify("_" * len(word))
     letters = []
     chances = 6
-    
-print("welcome to hangman\n")
-dashify(dashes)
+dict.close()    
+
+hangman()
+print("\n")
 
 while dashes != word and chances>0:
     
@@ -20,17 +34,13 @@ while dashes != word and chances>0:
     guess = input("guess a letter: ")
     
     ###tracking used letters###
-    if len(guess)>1:
-        clear.clear()    
-        print("welcome to hangman\n")
-        dashify(dashes)
-        print("type only one letter at a time please")
+    if len(guess)>1 or guess == '' :
+        hangman()
+        print("type one letter at a time please\n")
         continue
     elif guess in letters:
-        clear.clear()
-        print("welcome to hangman\n")
-        dashify(dashes)
-        print("this letter has already been used")
+        hangman()
+        print("this letter has already been used\n")
         continue
     elif guess not in letters:
         letters.append(guess)   
@@ -43,24 +53,17 @@ while dashes != word and chances>0:
             n+=1
             if guess == i:
                 dashes[n] = word[n]
-        clear.clear()    
-        print("welcome to hangman\n")
-        dashify(dashes)       
+        hangman()
+        print("\n")
          
     elif guess not in word:
-        clear.clear()
         chances-=1
-        print("welcome to hangman\n")
-        dashify(dashes)
-        print("that letter is not in the word")
+        hangman()
+        print("that letter is not in the word\n")
     
 if chances>0:
-    clear.clear()
-    print("welcome to hangman\n")
-    dashify(dashes)
+    hangman()
     print("\ncongrats! you have won!")
 else:
-    clear.clear()
-    print("welcome to hangman\n")
-    dashify(dashes)
+    hangman()
     print("\nsorry. you have lost.")
