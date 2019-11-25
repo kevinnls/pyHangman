@@ -16,13 +16,17 @@ def hangman():
     clear()
     print("welcome to hangman\n")
     dashify(dashes)
+    print("clue: " + clue)
 
-with open('dictionary.json') as dict:
-    word = listify(choice(json.load(dict)))
+with open('dictionary.json') as dictx:
+   # word = listify(choice(json.load(dict)))
+    dict=json.load(dictx)
+    word, clue = choice(list(dict.items()))
+    word = listify(word)
     dashes = listify("_" * len(word))
     letters = []
     chances = 6
-dict.close()    
+dictx.close()    
 
 hangman()
 print("\n")
