@@ -12,12 +12,12 @@ def dashify(dashes):
     for i in dashes:
         print(i ,end = " ")
     print ("\n")
-def hangman():
+def top():
     clear()
     print("welcome to hangman\n")
     dashify(dashes)
     print("clue: " + clue)
-def hangman_loss():
+def top_loss():
     clear()
     print("welcome to hangman\n")
     dashify(dashes)
@@ -34,7 +34,7 @@ with open('dictionary.json') as dictx:
     chances = 6
 dictx.close()    
 
-hangman()
+top()
 print("\n")
 
 while dashes != word and chances>0:
@@ -45,11 +45,11 @@ while dashes != word and chances>0:
     
     ###tracking used letters###
     if len(guess)>1 or guess == '' :
-        hangman()
+        top()
         print("\ntype one letter at a time please\n")
         continue
     elif guess in letters:
-        hangman()
+        top()
         print("\nthis letter has already been used\n")
         continue
     elif guess not in letters:
@@ -63,17 +63,17 @@ while dashes != word and chances>0:
             n+=1
             if guess == i:
                 dashes[n] = word[n]
-        hangman()
+        top()
         print("\n")
          
     elif guess not in word:
         chances-=1
-        hangman()
+        top()
         print("\nthat letter is not in the word\n")
     
 if chances>0:
-    hangman()
+    top()
     print("\ncongrats! you have won!")
 else:
-    hangman_loss()
+    top_loss()
     print("\nsorry. you have lost.")
