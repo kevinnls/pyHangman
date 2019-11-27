@@ -36,11 +36,12 @@ def hangman():
     # word = listify(choice(json.load(dict)))
         dict=json.load(dictx)
     for x in completed:
-        if listify(x) == word:
+        wordx = listify(word)
+        if listify(x) == wordx or listify(x) == listify(word):
             word, clue = choice(list(dict.items()))
         
     completed.append(word)
-    word = listify(word)
+    
     dashes = listify("_" * len(word))
     
     dictx.close()    
@@ -48,7 +49,7 @@ def hangman():
     top()
     print("\n")
 
-    while dashes != word and chances>0:
+    while dashes != wordx and chances>0:
     
         print("used letters: " + str(letters))
         print("chances left " + str(chances) +"/6")
@@ -68,16 +69,16 @@ def hangman():
     ###tracking used letters###
     
     ###check letter in word###
-        if guess in word:
+        if guess in wordx:
             n=-1
-            for i in word:
+            for i in wordx:
                 n+=1
                 if guess == i:
-                    dashes[n] = word[n]
+                    dashes[n] = wordx[n]
             top()
             print("\n")
          
-        elif guess not in word:
+        elif guess not in wordx:
             chances-=1
             top()
             print("\nthat letter is not in the word\n")
