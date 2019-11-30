@@ -15,6 +15,7 @@ def dashify(dashes):
 def top():
     clear()
     print("welcome to hangman\n")
+    print(word + clue)
     print(completed)
     dashify(dashes)
     print("clue: " + clue)
@@ -27,24 +28,19 @@ def top_loss():
 
 def hangman():
     letters = []
+    global dictionary
     global word
     global clue
     global dashes
     global completed
     chances = 6   
-    with open('dictionary.json') as dictx:
-    # word = listify(choice(json.load(dict)))
-        dict=json.load(dictx)
-    for x in completed:
-        wordx = listify(word)
-        if listify(x) == wordx or listify(x) == listify(word):
-            word, clue = choice(list(dict.items()))
-        
+    while word in completed:
+        pick = choice(list(dictionary.items()))
+        word = pick[0]
+        clue = pick[1]
     completed.append(word)
-    
+    wordx = listify(word)
     dashes = listify("_" * len(word))
-    
-    dictx.close()    
     
     top()
     print("\n")
@@ -89,13 +85,18 @@ def hangman():
     else:
         top_loss()
         print("\nsorry. you have lost.")
+
+
+with open('dictionary.json') as dictf:
+        dictionary = json.load(dictf)
+        dictf.close()
 dashes = ''
 clue = ''
 word = 'null'
 completed = ['null']
 while True:
     hangman()
-    
+    print(word + clue)
     choice = input("wanna play again? y/n: ")
     if choice == 'y':
         hangman()     
