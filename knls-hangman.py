@@ -2,11 +2,11 @@ import json
 from random import choice
 from clear import clear
 def listify(string):
-    n = 0
+    #n = 0
     l = []
     for i in string:
         l.append(i)
-        n+=1
+        #n+=1
     return l
 def dashify(dashes):
     for i in dashes:
@@ -96,7 +96,6 @@ word = 'null'
 completed = ['null']
 while True:
     hangman()
-    print(word + clue)
     replay = input("wanna play again? y/n: ")
     if replay == 'y':
         hangman()     
