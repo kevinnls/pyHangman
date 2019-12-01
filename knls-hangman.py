@@ -1,6 +1,6 @@
 import json
-from random import choice as choice
-from clear import clear as clear
+from random import choice
+from clear import clear
 def listify(string):
     n = 0
     l = []
@@ -15,8 +15,6 @@ def dashify(dashes):
 def top():
     clear()
     print("welcome to hangman\n")
-    print(word + clue)
-    print(completed)
     dashify(dashes)
     print("clue: " + clue)
 def top_loss():
@@ -27,17 +25,19 @@ def top_loss():
     print("clue: " + clue)
 
 def hangman():
-    letters = []
+    cache = []
     global dictionary
     global word
     global clue
     global dashes
     global completed
     chances = 6   
+    
     while word in completed:
         pick = choice(list(dictionary.items()))
         word = pick[0]
         clue = pick[1]
+        del pick
     completed.append(word)
     wordx = listify(word)
     dashes = listify("_" * len(word))
@@ -47,8 +47,8 @@ def hangman():
 
     while dashes != wordx and chances>0:
     
-        print("used letters: " + str(letters))
-        print("chances left " + str(chances) +"/6")
+        print("used letters: " + str(cache))
+        print("chances left: " + str(chances) +"/6")
         guess = input("guess a letter: ")
     
     ###tracking used letters###
@@ -56,12 +56,12 @@ def hangman():
             top()
             print("\ntype one letter at a time please\n")
             continue
-        elif guess in letters:
+        elif guess in cache:
             top()
             print("\nthis letter has already been used\n")
             continue
-        elif guess not in letters:
-            letters.append(guess)   
+        elif guess not in cache:
+            cache.append(guess)   
     ###tracking used letters###
     
     ###check letter in word###
@@ -97,11 +97,11 @@ completed = ['null']
 while True:
     hangman()
     print(word + clue)
-    choice = input("wanna play again? y/n: ")
-    if choice == 'y':
+    replay = input("wanna play again? y/n: ")
+    if replay == 'y':
         hangman()     
-    elif choice == 'n':
+    elif replay == 'n':
         print("thanks! bye bye!")
         exit()
     else:
-        print("invalid choice")         
+        print("invalid choice")
