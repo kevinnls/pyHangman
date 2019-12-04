@@ -94,13 +94,15 @@ dashes = ''
 clue = ''
 word = 'null'
 completed = ['null']
+
 while True:
     hangman()
     replay = input("wanna play again? y/n: ")
     if replay == 'y':
-        hangman()     
+        continue     
     elif replay == 'n':
         print("thanks! bye bye!")
         exit()
     else:
         print("invalid choice")
+        continue
