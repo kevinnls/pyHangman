@@ -1,4 +1,7 @@
 import json
+from string import ascii_lowercase
+#from string import ascii_uppercase
+#from string import lower
 from random import choice
 from clear import clear
 def listify(string):
@@ -60,11 +63,16 @@ def hangman():
         print("used letters: " + str(cache))
         print("chances left: " + str(chances) +"/6")
         guess = input("guess a letter: ")
+        guess = guess.lower()
     
     ###tracking used letters###
         if len(guess)>1 or guess == '' :
             top()
             print("\ntype one letter at a time please\n")
+            continue
+        elif guess not in list(ascii_lowercase):
+            top()
+            print("\ntype only letters please\n")
             continue
         elif guess in cache:
             top()
