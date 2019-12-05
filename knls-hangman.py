@@ -38,7 +38,7 @@ def hangman():
     
     if len(completed) == len(dictionary)+1:
        clear()
-       print("welcome to hangman\n")
+       print("thank you for playing hangman\n")
        print("you have beat the game. our dictionary has been exhausted. congrats!")
        exit()
     	
