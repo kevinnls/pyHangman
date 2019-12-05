@@ -16,6 +16,9 @@ def top():
     clear()
     print("welcome to hangman\n")
     dashify(dashes)
+    #print(len(dictionary))
+    #print(len(completed))
+    #print(completed)
     print("clue: " + clue)
 def top_loss():
     clear()
@@ -24,6 +27,7 @@ def top_loss():
     dashify(word)
     print("clue: " + clue)
 
+### start hangman ###
 def hangman():
     cache = []
     global dictionary
@@ -33,15 +37,21 @@ def hangman():
     global completed
     chances = 6   
     
-    while word in completed:
-        pick = choice(list(dictionary.items()))
-        word = pick[0]
-        clue = pick[1]
-        del pick
-    completed.append(word)
+    if len(completed) == len(dictionary)+1:
+       clear()
+       print("thank you for playing hangman\n")
+       print("you have beat the game. our dictionary has been exhausted. congrats!")
+       exit()
+    	
+    else:	
+        while word in completed:
+            pick = choice(list(dictionary.items()))
+            word = pick[0]
+            clue = pick[1]
+            del pick
+        completed.append(word)
     wordx = listify(word)
-    dashes = listify("_" * len(word))
-    
+    dashes = listify("_" * len(word))    
     top()
     print("\n")
 
@@ -81,29 +91,32 @@ def hangman():
     
     if chances>0:
         top()
+
         print("\ncongrats! you have won!")
         return
     else:
         top_loss()
         print("\nsorry. you have lost.")
         return
-
+### end hangman() ###
 
 with open('dictionary.json') as dictf:
         dictionary = json.load(dictf)
         dictf.close()
 dashes = ''
 clue = ''
-word = 'null'
+word = 'null' 
 completed = ['null']
+
 while True:
     hangman()
     
     replay = input("wanna play again? y/n: ")
     if replay == 'y':
-        hangman()     
+        continue     
     elif replay == 'n':
         print("thanks! bye bye!")
         exit()
     else:
         print("invalid choice")
+        continue
