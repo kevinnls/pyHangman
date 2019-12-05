@@ -33,15 +33,20 @@ def hangman():
     global completed
     chances = 6   
     
-    while word in completed:
-        pick = choice(list(dictionary.items()))
-        word = pick[0]
-        clue = pick[1]
-        del pick
-    completed.append(word)
-    wordx = listify(word)
-    dashes = listify("_" * len(word))
-    
+    if len(completed) <= len(dictionary):
+        while word in completed:
+            pick = choice(list(dictionary.items()))
+            word = pick[0]
+            clue = pick[1]
+            del pick
+        completed.append(word)
+        wordx = listify(word)
+        dashes = listify("_" * len(word))
+    else:
+       clear()
+       print("welcome to hangman\n")
+       print("you have beat the game. our dictionary has been exhausted. congrats!")
+       exit()
     top()
     print("\n")
 
@@ -81,10 +86,10 @@ def hangman():
     
     if chances>0:
         top()
-        print("\ncongrats! you have won!")
+        print("\ncongrats! you have won!\n")
     else:
         top_loss()
-        print("\nsorry. you have lost.")
+        print("\nsorry. you have lost.\n")
 
 
 with open('dictionary.json') as dictf:
