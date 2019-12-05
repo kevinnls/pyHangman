@@ -82,9 +82,11 @@ def hangman():
     if chances>0:
         top()
         print("\ncongrats! you have won!")
+        return
     else:
         top_loss()
         print("\nsorry. you have lost.")
+        return
 
 
 with open('dictionary.json') as dictf:
@@ -96,6 +98,7 @@ word = 'null'
 completed = ['null']
 while True:
     hangman()
+    
     replay = input("wanna play again? y/n: ")
     if replay == 'y':
         hangman()     
