@@ -16,6 +16,9 @@ def top():
     clear()
     print("welcome to hangman\n")
     dashify(dashes)
+    #print(len(dictionary))
+    #print(len(completed))
+    #print(completed)
     print("clue: " + clue)
 def top_loss():
     clear()
@@ -33,20 +36,21 @@ def hangman():
     global completed
     chances = 6   
     
-    if len(completed) <= len(dictionary):
+    if len(completed) == len(dictionary)+1:
+       clear()
+       print("welcome to hangman\n")
+       print("you have beat the game. our dictionary has been exhausted. congrats!")
+       exit()
+    	
+    else:	
         while word in completed:
             pick = choice(list(dictionary.items()))
             word = pick[0]
             clue = pick[1]
             del pick
         completed.append(word)
-        wordx = listify(word)
-        dashes = listify("_" * len(word))
-    else:
-       clear()
-       print("welcome to hangman\n")
-       print("you have beat the game. our dictionary has been exhausted. congrats!")
-       exit()
+    wordx = listify(word)
+    dashes = listify("_" * len(word))    
     top()
     print("\n")
 
@@ -97,7 +101,7 @@ with open('dictionary.json') as dictf:
         dictf.close()
 dashes = ''
 clue = ''
-word = 'null'
+word = 'null' 
 completed = ['null']
 
 while True:
