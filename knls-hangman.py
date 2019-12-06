@@ -4,13 +4,13 @@ from string import ascii_lowercase
 #from string import lower
 from random import choice
 from clear import clear
-def listify(string):
+#def listify(string):
     #n = 0
-    l = []
-    for i in string:
-        l.append(i)
+    #l = []
+    #for i in string:
+        #l.append(i)
         #n+=1
-    return l
+    #return list(string)
 def dashify(dashes):
     for i in dashes:
         print(i ,end = " ")
@@ -29,7 +29,7 @@ def top_loss():
     dashify(dashes)
     dashify(word)
     print("clue: " + clue)
-
+           
 ### start hangman ###
 def hangman():
     cache = []
@@ -53,8 +53,8 @@ def hangman():
             clue = pick[1]
             del pick
         completed.append(word)
-    wordx = listify(word)
-    dashes = listify("_" * len(word))    
+    wordx = list(word)
+    dashes = list("_" * len(word))    
     top()
     print("\n")
 
@@ -115,16 +115,21 @@ dashes = ''
 clue = ''
 word = 'null' 
 completed = ['null']
-
+print("welcome to hangman\n")
+start = input("press enter to play. \nif you want to quit enter q. \n :")
+if start == 'q':
+    exit()
+else:
+    pass
 while True:
     hangman()
-    
-    replay = input("wanna play again? y/n: ")
-    if replay == 'y':
-        continue     
-    elif replay == 'n':
-        print("thanks! bye bye!")
-        exit()
-    else:
-        print("invalid choice")
+    inp = input("\nwould you like to play again? y/n: ").lower()
+    while inp != 'y' and inp != 'n':
+        top()
+        inp = input("\n invalid choice. press y/n: ").lower()
+    if inp == 'y':
         continue
+    elif inp == 'n':
+        print("thanks for playing! bye bye")
+        exit()
+        
