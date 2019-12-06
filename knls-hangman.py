@@ -120,6 +120,7 @@ clue = ''
 word = 'null' 
 completed = ['null']
 chances = 0
+clear()
 print("welcome to hangman\n")
 start = input("press enter to play. \nif you want to quit enter q. \n :")
 if start == 'q':
@@ -133,10 +134,14 @@ while True:
     inp = input("\nwould you like to play again? y/n: ").lower()
     while inp != 'y' and inp != 'n':
         if chances > 0:
-            top()
+            #top()
+            clear()
+            print("welcome to hangman")
         else:
-            top_loss()    
-        inp = input("\nwould you like to play again? y/n: " +inp+ "\n\n invalid choice. press y/n: ").lower()
+            #top_loss()    
+            clear()
+            print("welcome to hangman")
+        inp = input("\ninvalid choice. \nwould you like to play again? press y/n: ").lower()
     if inp == 'y':
         continue
     elif inp == 'n':
