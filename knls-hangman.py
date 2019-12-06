@@ -19,16 +19,21 @@ def top():
     clear()
     print("welcome to hangman\n")
     dashify(dashes)
-    #print(len(dictionary))
-    #print(len(completed))
-    #print(completed)
     print("clue: " + clue)
+def top_win():
+    clear()
+    print("welcome to hangman\n")
+    dashify(dashes)
+    print("clue: " + clue)
+    print("\ncongrats! you have won!")
+    
 def top_loss():
     clear()
     print("welcome to hangman\n")
     dashify(dashes)
     dashify(word)
     print("clue: " + clue)
+    print("\nsorry. you have lost.")
            
 ### start hangman ###
 def hangman():
@@ -38,6 +43,7 @@ def hangman():
     global clue
     global dashes
     global completed
+    global chances
     chances = 6   
     
     if len(completed) == len(dictionary)+1:
@@ -98,13 +104,11 @@ def hangman():
             print("\nthat letter is not in the word\n")
     
     if chances>0:
-        top()
-
-        print("\ncongrats! you have won!")
+        top_win()
         return
     else:
         top_loss()
-        print("\nsorry. you have lost.")
+        
         return
 ### end hangman() ###
 
@@ -115,9 +119,12 @@ dashes = ''
 clue = ''
 word = 'null' 
 completed = ['null']
+chances = 0
 print("welcome to hangman\n")
 start = input("press enter to play. \nif you want to quit enter q. \n :")
 if start == 'q':
+    clear()
+    print("thanks for stopping by at hangman\nbye! bye!")
     exit()
 else:
     pass
@@ -125,8 +132,11 @@ while True:
     hangman()
     inp = input("\nwould you like to play again? y/n: ").lower()
     while inp != 'y' and inp != 'n':
-        top()
-        inp = input("\n invalid choice. press y/n: ").lower()
+        if chances > 0:
+            top()
+        else:
+            top_loss()    
+        inp = input("\nwould you like to play again? y/n: " +inp+ "\n\n invalid choice. press y/n: ").lower()
     if inp == 'y':
         continue
     elif inp == 'n':
