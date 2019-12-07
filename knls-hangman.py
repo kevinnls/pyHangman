@@ -1,28 +1,27 @@
 import json
+from stick import stickman
 from string import ascii_lowercase
 #from string import ascii_uppercase
 #from string import lower
 from random import choice
 from clear import clear
-#def listify(string):
-    #n = 0
-    #l = []
-    #for i in string:
-        #l.append(i)
-        #n+=1
-    #return list(string)
+
 def dashify(dashes):
     for i in dashes:
         print(i ,end = " ")
     print ("\n")
+    
 def top():
     clear()
     print("welcome to hangman\n")
+    stickman.stickout(chances)
     dashify(dashes)
     print("clue: " + clue)
+    
 def top_win():
     clear()
     print("welcome to hangman\n")
+    stickman.stickout(chances)
     dashify(dashes)
     print("clue: " + clue)
     print("\ncongrats! you have won!")
@@ -30,6 +29,7 @@ def top_win():
 def top_loss():
     clear()
     print("welcome to hangman\n")
+    stickman.stickout(chances)
     dashify(dashes)
     dashify(word)
     print("clue: " + clue)

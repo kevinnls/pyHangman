@@ -15,40 +15,40 @@ class stickman:
 	'''
     stick[2] = '''
 	       o
-	        |
-	
+	       |
+	       ᵔ
 	••••••••••••••
 	'''
     stick[3] = '''
-       	o
+	       o
 	      /|
-	
+	       ᵔ
 	••••••••••••••
 	'''
     stick[4] = '''
-       	o
+	       o
 	      /|\\
-	
+	       ᵔ
 	••••••••••••••
 	'''
     stick[5] = '''
-       	o
+	       o
 	      /|\\
-	        \\
+	       ᵔ\\
 	••••••••••••••
 	'''
     stick[6] = '''
-       	o
+	       o
 	      /|\\
-	       /\\
+	      /ᵔ\\
 	••••••••••••••
 	'''
     #__init__():
        # pass
         
-    def stickout(self, num):
-        print(self.stick[num])
+    def stickout(num):
+        print(stickman.stick[6-num])
         return
-man = stickman() 
-for i in range(1,7):
-    man.stickout(i)
+#man = stickman() 
+#for i in range(1,7):
+#    stickman.stickout(i)
