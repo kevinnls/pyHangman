@@ -13,22 +13,22 @@ def dashify(dashes):
     
 def top():
     clear()
-    print("welcome to hangman\n")
+    print("welcome to hangman\n \t\t" + "wins: " + str(v) + "   losses: " + str(l))
     stickman.stickout(chances)
     dashify(dashes)
     print("clue: " + clue)
     
 def top_win():
-    clear()
-    print("welcome to hangman\n")
-    stickman.stickout(chances)
-    dashify(dashes)
-    print("clue: " + clue)
+    global v
+    v += 1
+    top()
     print("\ncongrats! you have won!")
     
 def top_loss():
+    global l
+    l += 1
     clear()
-    print("welcome to hangman\n")
+    print("welcome to hangman\n \t\t" + "wins: " + str(v) + "   losses: " + str(l))
     stickman.stickout(chances)
     dashify(dashes)
     dashify(word)
@@ -44,12 +44,14 @@ def hangman():
     global dashes
     global completed
     global chances
+    global l
+    global v
     chances = 6   
     
     if len(completed) == len(dictionary)+1:
        clear()
        print("thank you for playing hangman\n")
-       print("you have beat the game. our dictionary has been exhausted. congrats!")
+       print("you have beat the game. our dictionary has been exhausted.\n\nyou won " + str(v) + " times\nand lost " + str(l) + " times\n\ncongrats!")
        exit()
     	
     else:	
@@ -72,9 +74,13 @@ def hangman():
         guess = guess.lower()
     
     ###tracking used letters###
-        if len(guess)>1 or guess == '' :
+        if len(guess)>1:
             top()
             print("\ntype one letter at a time please\n")
+            continue
+        elif len(guess)<1:
+            top()
+            print("\n type at least one letter please\n")
             continue
         elif guess not in list(ascii_lowercase):
             top()
@@ -115,11 +121,18 @@ def hangman():
 with open('dictionary.json') as dictf:
         dictionary = json.load(dictf)
         dictf.close()
+
+
+
+### START of MAIN ###
 dashes = ''
 clue = ''
 word = 'null' 
 completed = ['null']
 chances = 0
+v = 0
+l = 0
+
 clear()
 print("welcome to hangman\n")
 start = input("press enter to play. \nif you want to quit enter q. \n :")
@@ -145,6 +158,7 @@ while True:
     if inp == 'y':
         continue
     elif inp == 'n':
-        print("thanks for playing! bye bye")
-        exit()
-        
+        clear()
+        print("thanks for playing hangman!\n\nyou won " + str(v) + " times\nand lost " + str(l) + " times\n\nbye bye hope to see you again!")
+        exit() 
+### END of MAIN ###
