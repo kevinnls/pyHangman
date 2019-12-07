@@ -125,7 +125,7 @@ print("welcome to hangman\n")
 start = input("press enter to play. \nif you want to quit enter q. \n :")
 if start == 'q':
     clear()
-    print("thanks for stopping by at hangman\nbye! bye!")
+    print("thanks for stopping by at hangman\n\nbye! bye!")
     exit()
 else:
     pass
