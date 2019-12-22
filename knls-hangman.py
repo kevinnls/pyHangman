@@ -83,11 +83,11 @@ def hangman():
         guess = guess.lower()
     
     ###tracking used letters###
-        if len(guess)>1:
-            top()
-            print("\ntype one letter at a time please\n")
-            continue
-        elif len(guess)<1:
+        #if len(guess)>1:
+        #    top()
+        #    print("\ntype one letter at a time please\n")
+        #    continue
+        if len(guess)<1:
             top()
             print("\n type at least one letter please\n")
             continue
@@ -100,23 +100,24 @@ def hangman():
             print("\nthis letter has already been used\n")
             continue
         elif guess not in cache:
-            cache.append(guess)   
+            for i in guess:
+                cache.append(guess)   
     ###tracking used letters###
     
     ###check letter in word###
-        if guess in string:
-            n=-1
-            for i in string:
-                n+=1
-                if guess == i:
-                    dashes[n] = string[n]
-            top()
-            print("\n")
-         
-        elif guess not in string:
-            chances-=1
-            top()
-            print("\nthat letter is not in the word\n")
+        for i in guess:
+            if i in string:
+                n=-1
+                for letter in string:
+                    n+=1
+                    if guess == letter:
+                        dashes[n] = string[n]
+                top()
+                print("\n")
+            elif guess not in string:
+                chances-=1
+                top()
+                print("\nthat letter is not in the word\n")
     
     if chances>0:
         top_win()
