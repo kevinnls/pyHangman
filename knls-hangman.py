@@ -1,21 +1,32 @@
 import json
-from stick import stickman
+from stick import stickman as stickman
 from string import ascii_lowercase
 #from string import ascii_uppercase
 #from string import lower
 from random import choice
 from clear import clear
 
-def dashify(dashes):
+def print_dashes(dashes):
     for i in dashes:
         print(i ,end = " ")
     print ("\n")
+    
+def dashify(raw):
+	product=[]
+	for i in raw:
+		if i not in ascii_lowercase:
+			product.append(i)
+		else:
+			product.append("_")
+	return product
+			
+		
     
 def top():
     clear()
     print("welcome to hangman\n \t\t" + "wins: " + str(v) + "   losses: " + str(l))
     stickman.stickout(chances)
-    dashify(dashes)
+    print_dashes(dashes)
     print("clue: " + clue)
     
 def top_win():
@@ -30,8 +41,8 @@ def top_loss():
     clear()
     print("welcome to hangman\n \t\t" + "wins: " + str(v) + "   losses: " + str(l))
     stickman.stickout(chances)
-    dashify(dashes)
-    dashify(word)
+    print_dashes(dashes)
+    print_dashes(word)
     print("clue: " + clue)
     print("\nsorry. you have lost.")
            
@@ -39,7 +50,8 @@ def top_loss():
 def hangman():
     cache = []
     global dictionary
-    global word
+    #dictionary = {"a stitch-in-time saves nine!":"quick decisions are fly"}
+    global raw_string
     global clue
     global dashes
     global completed
@@ -55,18 +67,15 @@ def hangman():
        exit()
     	
     else:	
-        while word in completed:
-            pick = choice(list(dictionary.items()))
-            word = pick[0]
-            clue = pick[1]
-            del pick
-        completed.append(word)
-    wordx = list(word)
-    dashes = list("_" * len(word))    
+        while raw_string in completed:
+            raw_string,clue = choice(list(dictionary.items()))
+        completed.append(raw_string)
+    string = list(raw_string)
+    dashes = dashify(raw_string)    
     top()
     print("\n")
 
-    while dashes != wordx and chances>0:
+    while dashes != string and chances>0:
     
         print("used letters: " + str(cache))
         print("chances left: " + str(chances) +"/6")
@@ -95,16 +104,16 @@ def hangman():
     ###tracking used letters###
     
     ###check letter in word###
-        if guess in wordx:
+        if guess in string:
             n=-1
-            for i in wordx:
+            for i in string:
                 n+=1
                 if guess == i:
-                    dashes[n] = wordx[n]
+                    dashes[n] = string[n]
             top()
             print("\n")
          
-        elif guess not in wordx:
+        elif guess not in string:
             chances-=1
             top()
             print("\nthat letter is not in the word\n")
@@ -118,16 +127,14 @@ def hangman():
         return
 ### end hangman() ###
 
+### START of MAIN ###
 with open('dictionary.json') as dictf:
         dictionary = json.load(dictf)
         dictf.close()
 
-
-
-### START of MAIN ###
 dashes = ''
 clue = ''
-word = 'null' 
+raw_string = 'null' 
 completed = ['null']
 chances = 0
 v = 0
@@ -144,6 +151,7 @@ else:
     pass
 while True:
     hangman()
+    
     inp = input("\nwould you like to play again? y/n: ").lower()
     while inp != 'y' and inp != 'n':
         if chances > 0:
@@ -159,6 +167,6 @@ while True:
         continue
     elif inp == 'n':
         clear()
-        print("thanks for playing hangman!\n\nyou won " + str(v) + " times\nand lost " + str(l) + " times\n\nbye bye hope to see you again!")
+        print("thanks for playing hangman!\n\n total rounds played\t: " + str(v+l) + "\n number of rounds won\t: " + str(v) + "\n number of rounds lost\t: " + str(l) + "\n\nbye bye hope to see you again!")
         exit() 
 ### END of MAIN ###

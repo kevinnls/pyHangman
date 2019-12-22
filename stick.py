@@ -79,6 +79,3 @@ class stickman:
     def stickout(num):
         print(stickman.stick[6-num])
         return
-#man = stickman() 
-for i in range(0,10):
-    stickman.stickout(i)
