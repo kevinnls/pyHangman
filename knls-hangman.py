@@ -106,7 +106,7 @@ def hangman():
         print("\ntried letters: " + str(tried_letters))
         print("body parts left: " + str(chances) +"/6")
         guess = input("\n what's your guess? ")
-        guess = guess.lower()
+        guess = list(dict.fromkeys(list(guess.lower())))
         
         if len(guess)<1:
             top()
@@ -180,12 +180,16 @@ while True:
     inp = input("\nwould you like to play again? y/n: ").lower()
     while inp != 'y' and inp != 'n':
         clear()
-        print("welcome to hangman")
+        print("welcome to hangman\n")
+        stickman.stickout(6)
         inp = input("\ninvalid choice. \nwould you like to play again? press y/n: ").lower()
     if inp == 'y':
         continue
     elif inp == 'n':
         clear()
-        print("thanks for playing hangman!\n\n total rounds played\t: " + str(v+l) + "\n number of rounds won\t: " + str(v) + "\n number of rounds lost\t: " + str(l) + "\n\nbye bye hope to see you again!")
+        
+        print("thanks for playing hangman!\n")
+        stickman.stickout(6)
+        print("\n total rounds played\t: " + str(v+l) + "\n number of rounds won\t: " + str(v) + "\n number of rounds lost\t: " + str(l) + "\n\nbye bye hope to see you again!")
         exit() 
 ### END of MAIN ###
