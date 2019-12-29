@@ -16,7 +16,17 @@ l = 0
 with open('dictionary.json') as dictf:
         dictionary = json.load(dictf)
         dictf.close()
-        
+def verify(char, string):
+    global dashes
+    if char in string:
+        n=-1
+        for letter in string:
+            n+=1
+            if char == letter:
+                dashes[n] = string[n]
+        return 0
+    elif char not in string:
+        return 1
 def print_dashes(dashes):
     print("   ", end= "")
     for i in dashes:
@@ -32,27 +42,18 @@ def dashify(raw):
 			product.append("_")
 	return product
     
-def top(case):
+def top():
     clear()
     print("welcome to hangman\n \t\t" + "wins: " + str(v) + "   losses: " + str(l))
     stickman.stickout(chances)
     print_dashes(dashes)
-    print("clue: " + clue)
-    
-    #cases#
-    if case == "0":
-        return
-    if case == "nil":
-        print("\ntype at least one letter please")
-    if case == "not":
-        print("\ntype only letters please")
-    if case == "used":
-        print("\nthis letter has already been used")
-    
+    print("clue: " + clue +"\n")
+    return
+
 def top_win():
     global v
     v += 1
-    top("0")
+    top()
     print("\ncongrats! you have won!")
     
 def top_loss():
@@ -60,7 +61,7 @@ def top_loss():
     l += 1
     clear()
     print("welcome to hangman\n \t\t" + "wins: " + str(v) + "   losses: " + str(l))
-    stickman.stickout(chances)
+    stickman.stickout(6)
     print_dashes(dashes)
     print_dashes(raw_string)
     print("clue: " + clue)
@@ -79,7 +80,7 @@ def hangman():
     global chances
     global l
     global v
-    cache = []
+    tried_letters = []
     chances = 6   
     
     #check if dictionary exhausted#
@@ -94,51 +95,52 @@ def hangman():
             raw_string,clue = choice(list(dictionary.items()))
         completed.append(raw_string)
         
-    #dashify the raw_string and convert raw_string to list of characters
+    #dashify the raw_string and convert it to list of characters
     string = list(raw_string)
     dashes = dashify(raw_string)
     ### INIT END ###
         
-    top("0")
-    print("\n")
+    top()
     while dashes != string and chances>0:
     
-        print("used letters: " + str(cache))
+        print("\ntried letters: " + str(tried_letters))
         print("chances left: " + str(chances) +"/6")
         guess = input("guess a letter: ")
         guess = guess.lower()
-    
-    ###tracking used letters###
+        
         if len(guess)<1:
             top("nil")
             continue
-        elif guess not in list(letters):
-            top("not")
-            continue
-        elif guess in cache:
-            top("used")
-            continue
-        elif guess not in cache:
-            for i in guess:
-                cache.append(i)
-    ###tracking used letters###
-    
-    ###check letter in word###
-        for char in guess:
-            if char in string:
-                n=-1
-                for letter in string:
-                    n+=1
-                    if char == letter:
-                        dashes[n] = string[n]
-                top("0")
-                print("\n")
-            elif char not in string:
-                chances-=1
-                
-                top("0")
-                print("\nthat letter is not in the word\n")
-    
+        else:
+            usedchar = []
+            wrongchar = []
+            notchar = 0
+            for char in guess:
+                if char not in letters:
+                    notchar+=1
+                elif char in letters and char in tried_letters:
+                    usedchar.append(char)
+                elif char in letters and char not in tried_letters:
+                    tried_letters.append(char)
+                    result=verify(char, string)
+                    if result == 0 and dashes == string:
+                        break
+                    if result == 1:
+                        wrongchar.append(char)
+                        chances-=1
+            top()
+            if len(wrongchar)==1:
+                print("  the letter " + str(wrongchar) + " is not in the word")
+            if len(wrongchar)>1:
+                print("  the letters " + str(wrongchar) + " are not in the word")
+            if len(usedchar)==1:
+                print("  you have already tried the letter " + str(usedchar))
+            elif len(usedchar)>1:
+                print("  you have already tried the letters " + str(usedchar))
+            if notchar>0:
+                print("  please type only letters")
+            pass
+
     if chances>0:
         top_win()
         return
