@@ -61,7 +61,7 @@ def top_loss():
     l += 1
     clear()
     print("welcome to hangman\n \t\t" + "wins: " + str(v) + "   losses: " + str(l))
-    stickman.stickout(6)
+    stickman.stickout(0)
     print_dashes(dashes)
     print_dashes(raw_string)
     print("clue: " + clue)
@@ -104,12 +104,12 @@ def hangman():
     while dashes != string and chances>0:
     
         print("\ntried letters: " + str(tried_letters))
-        print("chances left: " + str(chances) +"/6")
-        guess = input("guess a letter: ")
+        print("body parts left: " + str(chances) +"/6")
+        guess = input("\n what's your guess? ")
         guess = guess.lower()
         
         if len(guess)<1:
-            top("nil")
+            top()
             continue
         else:
             usedchar = []
@@ -152,6 +152,19 @@ def hangman():
 ### START of MAIN ###
 clear()
 print("welcome to hangman\n")
+print('''
+        guess letters till you find the word in question. 
+            can you find the answer and escape the gallows?
+
+        for each letter that isn't in the word, 
+            another part of you is hung.
+           
+        you may guess multiple letters at a time,
+            but how sure are you of the answer...?
+
+        remember. your life dangles on the string.
+
+''')
 start = input("press enter to play. \nif you want to quit enter q. \n :")
 if start == 'q':
     clear()
