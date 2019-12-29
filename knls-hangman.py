@@ -18,7 +18,7 @@ with open('dictionary.json') as dictf:
         dictf.close()
         
 def print_dashes(dashes):
-    print("\t", end= "")
+    print("   ", end= "")
     for i in dashes:
         print(i, end = " ")
     print ("\n")
