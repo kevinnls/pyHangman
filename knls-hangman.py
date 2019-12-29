@@ -62,7 +62,7 @@ def top_loss():
     print("welcome to hangman\n \t\t" + "wins: " + str(v) + "   losses: " + str(l))
     stickman.stickout(chances)
     print_dashes(dashes)
-    print_dashes(word)
+    print_dashes(raw_string)
     print("clue: " + clue)
     print("\nsorry. you have lost.")
            
@@ -97,7 +97,7 @@ def hangman():
     #dashify the raw_string and convert raw_string to list of characters
     string = list(raw_string)
     dashes = dashify(raw_string)
-    ### INIT END###
+    ### INIT END ###
         
     top("0")
     print("\n")
@@ -131,13 +131,13 @@ def hangman():
                     n+=1
                     if char == letter:
                         dashes[n] = string[n]
-                #top("0")
-                #print("\n")
+                top("0")
+                print("\n")
             elif char not in string:
                 chances-=1
                 
-                #top("0")
-                #print("\nthat letter is not in the word\n")
+                top("0")
+                print("\nthat letter is not in the word\n")
     
     if chances>0:
         top_win()
@@ -164,6 +164,7 @@ while True:
     
     inp = input("\nwould you like to play again? y/n: ").lower()
     while inp != 'y' and inp != 'n':
+        clear()
         print("welcome to hangman")
         inp = input("\ninvalid choice. \nwould you like to play again? press y/n: ").lower()
     if inp == 'y':
