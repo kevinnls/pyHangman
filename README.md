@@ -1,1 +1,2 @@
-# this is my personal repo where i'm constantly trying stuff out.
+
+# a CUI-based game of hangman created using Python
