@@ -7,7 +7,7 @@ from clear import clear
 ### global attributes ###
 dashes = ''
 clue = ''
-raw_string = '\0' 
+raw_string = '\0'
 completed = ['\0']
 chances = 0
 v = 0
@@ -32,7 +32,7 @@ def print_dashes(dashes):
     for i in dashes:
         print(i, end = " ")
     print ("\n")
-    
+
 def dashify(raw):
 	product=[]
 	for i in raw:
@@ -41,7 +41,7 @@ def dashify(raw):
 		else:
 			product.append("_")
 	return product
-    
+
 def top():
     clear()
     print("welcome to hangman\n \t\t" + "wins: " + str(v) + "   losses: " + str(l))
@@ -55,7 +55,7 @@ def top_win():
     v += 1
     top()
     print("\ncongrats! you have won!")
-    
+
 def top_loss():
     global l
     l += 1
@@ -66,7 +66,7 @@ def top_loss():
     print_dashes(raw_string)
     print("clue: " + clue)
     print("\nsorry. you have lost.")
-           
+
 ### start hangman ###
 def hangman():
     ### INIT START###
@@ -81,33 +81,33 @@ def hangman():
     global l
     global v
     tried_letters = []
-    chances = 6   
-    
+    chances = 6
+
     #check if dictionary exhausted#
     if len(completed) == len(dictionary)+1:
-       clear() 
+       clear()
        print("thank you for playing hangman\n")
        print("you have beat the game. our dictionary has been exhausted.\n\nyou won " + str(v) + " times\nand lost " + str(l) + " times\n\ncongrats!")
        exit()
-    #load unused raw_string from dictionary#	
-    else:	
+    #load unused raw_string from dictionary#
+    else:
         while raw_string in completed:
             raw_string,clue = choice(list(dictionary.items()))
         completed.append(raw_string)
-        
+
     #dashify the raw_string and convert it to list of characters
     string = list(raw_string)
     dashes = dashify(raw_string)
     ### INIT END ###
-        
+
     top()
     while dashes != string and chances>0:
-    
+
         print("\ntried letters: " + str(tried_letters))
         print("body parts left: " + str(chances) +"/6")
         guess = input("\n what's your guess? ")
         guess = list(dict.fromkeys(list(guess.lower())))
-        
+
         if len(guess)<1:
             top()
             continue
@@ -153,12 +153,12 @@ def hangman():
 clear()
 print("welcome to hangman\n")
 print('''
-        guess letters till you find the word in question. 
+        guess letters till you find the word in question.
             can you find the answer and escape the gallows?
 
-        for each letter that isn't in the word, 
+        for each letter that isn't in the word,
             another part of you is hung.
-           
+
         you may guess multiple letters at a time,
             but how sure are you of the answer...?
 
@@ -172,11 +172,11 @@ if start == 'q':
     exit()
 else:
     pass
-    
-    
+
+
 while True:
     hangman()
-    
+
     inp = input("\nwould you like to play again? y/n: ").lower()
     while inp != 'y' and inp != 'n':
         clear()
@@ -187,9 +187,9 @@ while True:
         continue
     elif inp == 'n':
         clear()
-        
+
         print("thanks for playing hangman!\n")
         stickman.stickout(6)
         print("\n total rounds played\t: " + str(v+l) + "\n number of rounds won\t: " + str(v) + "\n number of rounds lost\t: " + str(l) + "\n\nbye bye hope to see you again!")
-        exit() 
+        exit()
 ### END of MAIN ###
