@@ -1,18 +1,19 @@
-import tkinter
+### this is the Hangman class
 import json
 from stick import stickman as stickman
 from string import ascii_lowercase as letters
 from random import choice
 from clear import clear
 
+
 class Hangman:
-    def __init__(self):
-        print("hi")
+    def __init__(self):        
         self.dashes = ''
         self.clue = ''
         self.raw_string = '\0' 
         self.completed = ['\0']
-        self.chances = 0
+        self.tried_letters = []
+        self.chances = 6
         self.v = 0
         self.l = 0
         self.how_to_play='''
@@ -33,13 +34,12 @@ class Hangman:
         self.main_menu()
                 
     def check(self, char, string):
-        global dashes
         if char in string:
             n=-1
             for letter in string:
                 n+=1
                 if char == letter:
-                    dashes[n] = string[n]
+                    self.dashes[n] = string[n]
             return 0
         elif char not in string:
             return 1
@@ -68,20 +68,18 @@ class Hangman:
         return
     
     def top_win(self):
-        global v
-        v += 1
-        top()
+        self.v += 1
+        self.top()
         print("\ncongrats! you have won!")
         
     def top_loss(self):
-        global l
-        l += 1
+        self.l += 1
         clear()
-        print("welcome to hangman\n \t\t" + "wins: " + str(v) + "   losses: " + str(l))
+        print("welcome to hangman\n \t\t" + "wins: " + str(self.v) + "   losses: " + str(self.l))
         stickman.stickout(0)
-        print_dashes(dashes)
-        print_dashes(raw_string)
-        print("clue: " + clue)
+        self.print_dashes(self.dashes)
+        self.print_dashes(self.raw_string)
+        print("clue: " + self.clue)
         print("\nsorry. you have lost.")
                
     ### start hangman ###
@@ -97,8 +95,8 @@ class Hangman:
         # global chances
         # global l
         # global v
-        tried_letters = []
-        chances = 6   
+        self.tried_letters = []
+        self.chances = 6
         
         #check if dictionary exhausted#
         if len(self.completed) == len(self.dictionary)+1:
@@ -118,10 +116,10 @@ class Hangman:
         ### INIT END ###
             
         self.top()
-        while self.dashes != self.string and self.chances>0:
+        while self.chances > 0 and self.dashes != self.string:
         
-            print("\ntried letters: " + str(tried_letters))
-            print("body parts left: " + str(    chances) +"/6")
+            print("\ntried letters: " + str(self.tried_letters))
+            print("body parts left: " + str(self.chances) +"/6")
             self.guess = input("\n what's your guess? ")
             self.guess = list(dict.fromkeys(list(self.guess.lower())))
             
@@ -137,15 +135,15 @@ class Hangman:
                         notchar+=1
                     elif char in letters and char in self.tried_letters:
                         usedchar.append(char)
-                    elif char in letters and char not in tried_letters:
-                        tried_letters.append(char)
-                        result=check(char, string)
-                        if result == 0 and dashes == string:
+                    elif char in letters and char not in self.tried_letters:
+                        self.tried_letters.append(char)
+                        result=self.check(char, self.string)
+                        if result == 0 and self.dashes == self.string:
                             break
                         if result == 1:
                             wrongchar.append(char)
-                            chances-=1
-                top()
+                            self.chances-=1
+                self.top()
                 if len(wrongchar)==1:
                     print("  the letter " + str(wrongchar) + " is not in the word")
                 if len(wrongchar)>1:
@@ -158,11 +156,11 @@ class Hangman:
                     print("  please type only letters")
                 pass
     
-        if chances>0:
-            top_win()
+        if self.chances>0:
+            self.top_win()
             return
         else:
-            top_loss()
+            self.top_loss()
             return
     ### end hangman() ###
     
@@ -195,7 +193,7 @@ class Hangman:
                 
                 print("thanks for playing hangman!\n")
                 stickman.stickout(6)
-                print("\n total rounds played\t: " + str(v+l) + "\n number of rounds won\t: " + str(v) + "\n number of rounds lost\t: " + str(l) + "\n\nbye bye hope to see you again!")
+                print("\n total rounds played\t: " + str(self.v+self.l) + "\n number of rounds won\t: " + str(self.v) + "\n number of rounds lost\t: " + str(self.l) + "\n\nbye bye hope to see you again!")
                 exit()        
     
 
