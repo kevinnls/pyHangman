@@ -29,3 +29,17 @@ from string import ascii_lowercase as letters
 from random import choice
 from clear import *
 from hangman import *
+
+window = Tk()
+window.geometry('1080x720')
+top = LabelFrame().pack()
+Label(top,text = "Hangman",anchor="nw").pack()
+Label(top,text = "wins:").pack()
+wins = StringVar()
+wins = '0'
+v = Label(top, textvariable=wins).pack()
+Label(top,text = "losses:").pack()
+l = Label(top, text = "0").pack()
+#l['text']=5
+
+window.mainloop()

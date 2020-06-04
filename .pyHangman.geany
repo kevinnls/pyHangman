@@ -28,10 +28,13 @@ long_line_behaviour=1
 long_line_column=72
 
 [files]
-current_page=0
+current_page=2
+FILE_NAME_0=1225;Python;0;EUTF-8;0;1;0;%2Fhome%2Fkevins%2FOpi%2Fcoding%2Fprojects%2Fkevinnls%2FpyHangman%2Fworking%2Fguihangman.py;0;4
+FILE_NAME_1=7027;Python;0;EUTF-8;0;1;0;%2Fhome%2Fkevins%2FOpi%2Fcoding%2Fprojects%2Fkevinnls%2FpyHangman%2Fworking%2Fhangman.py;0;4
+FILE_NAME_2=0;Python;0;EUTF-8;0;1;0;%2Fhome%2Fkevins%2FOpi%2Fcoding%2Fprojects%2Fkevinnls%2FpyHangman%2Fknls-hangman.py;0;4
 
 [VTE]
-last_dir=/xmnt/k/Users/kevins/Opi/coding/projects/kevinnls/python
+last_dir=/xmnt/k/kevins/Opi/coding/projects/kevinnls/pyHangman
 
 [prjorg]
 source_patterns=*.c;*.C;*.cpp;*.cxx;*.c++;*.cc;*.m;

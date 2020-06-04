@@ -197,4 +197,4 @@ class Hangman:
                 exit()        
     
 
-player1 = Hangman()
+#player1 = Hangman()
